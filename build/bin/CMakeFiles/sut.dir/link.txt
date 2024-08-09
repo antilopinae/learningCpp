@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsut.a CMakeFiles/sut.dir/run.cpp.o
+/usr/bin/ranlib libsut.a

@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.30.0)
+project(Test CXX)
+enable_testing()
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+add_subdirectory(src bin)
+add_subdirectory(test)
+configure_file(.clang-format .clang-format COPYONLY)

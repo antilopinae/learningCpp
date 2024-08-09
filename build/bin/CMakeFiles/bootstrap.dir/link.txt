@@ -1,0 +1,1 @@
+/usr/bin/c++ -g --coverage CMakeFiles/bootstrap.dir/bootstrap.cpp.o -o bootstrap  libsut.a modules/libmodules.a
