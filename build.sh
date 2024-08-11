@@ -1,5 +1,5 @@
 #!/bin/bash
-
-cmake -B build -S . -DCMAKE_BUILD_TYPE=Debug
+rm -R build
+cmake -G "Ninja" -B build -S .
 cmake --build build
 

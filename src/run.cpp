@@ -1,4 +1,4 @@
-import foo;
+import my_lib;
 
 int run() {
 	foo a;
