@@ -1,11 +1,9 @@
-import Vector;
-
-#include <iostream>
+import foo;
 
 int run() {
-	double sum = 0;
-	Vector v = Vector(3);
-	std::cout<<size(v)<<std::endl;
+	foo a;
+	a.helloworld();
+	//std::cout<<size(v)<<std::endl;
 
 	return 0;
 }
