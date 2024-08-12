@@ -1,11 +1,12 @@
 add_library(sut STATIC run.cpp)
-target_include_directories(sut PUBLIC .)
+#target_include_directories(sut PUBLIC .)
 
 target_link_libraries(sut PRIVATE my_lib)
 
+
 target_compile_options(sut
 	PRIVATE -std=c++20
-	PRIVATE -fmodules-ts
+	#PRIVATE -fmodules-ts
 )
 
 target_compile_features(sut PUBLIC cxx_std_20)
@@ -46,5 +47,5 @@ endif()
 
 add_executable(bootstrap bootstrap.cpp)
 
-target_compile_features(bootstrap PUBLIC cxx_std_20)
+#target_compile_features(bootstrap PUBLIC cxx_std_20)
 target_link_libraries(bootstrap PRIVATE sut)

@@ -1,18 +1,11 @@
 module;
-#include <iostream>
 
-export module my_lib;
+// helloworld.cpp
+export module helloworld; // module declaration
 
-export class foo {
-public:
-    foo();
-    ~foo();
-    void helloworld();
-};
+// #include <iostream>        // import declaration
 
-foo::foo() = default;
-foo::~foo() = default;
-
-void foo::helloworld() {
-    std::cout << "hello world\n";
+export int hello()       // export declaration
+{
+    return 5;
 }

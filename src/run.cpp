@@ -1,9 +1,9 @@
-import my_lib;
+import helloworld;
+
+#include <iostream>
 
 int run() {
-	foo a;
-	a.helloworld();
-	//std::cout<<size(v)<<std::endl;
+	std::cout<<hello()<<std::endl;
 
 	return 0;
 }
