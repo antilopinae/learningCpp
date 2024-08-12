@@ -4,14 +4,15 @@ add_library(sut STATIC run.cpp)
 target_link_libraries(sut PRIVATE my_lib)
 
 
-target_compile_options(sut
-	PRIVATE -std=c++20
-	#PRIVATE -fmodules-ts
-)
-
-target_compile_features(sut PUBLIC cxx_std_20)
+#target_compile_features(sut PUBLIC cxx_std_20)
 
 #[=[
+
+target_compile_options(sut
+	PRIVATE -std=c++20
+	PRIVATE -fmodules-ts
+)
+
 
 target_compile_options(sut
 	PUBLIC -O3

@@ -1,5 +1,7 @@
 module;
 
+#include <iostream>
+
 // helloworld.cpp
 export module helloworld; // module declaration
 
@@ -7,5 +9,6 @@ export module helloworld; // module declaration
 
 export int hello()       // export declaration
 {
+    std::cout<<"Hello world" << std::endl;
     return 5;
 }
