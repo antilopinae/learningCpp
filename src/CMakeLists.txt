@@ -2,7 +2,7 @@ add_library(sut STATIC run.cpp)
 target_include_directories(sut PUBLIC .)
 
 target_link_libraries(sut PRIVATE my_lib)
-target_compile_options(sut PRIVATE -save-temps=obj)
+#target_compile_options(sut PRIVATE -save-temps=obj)
 #[[
 include(Format)
 Format(sut .)

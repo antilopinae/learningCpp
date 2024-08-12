@@ -28,5 +28,4 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 add_subdirectory(src bin)
 add_subdirectory(modules)
 add_subdirectory(test)
-
 #configure_file(.clang-format .clang-format COPYONLY)
