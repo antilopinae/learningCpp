@@ -1,9 +1,0 @@
-/home/antilopa/Projects/Cpp/LearningCpp/build/CMakeFiles/edit_cache.dir
-/home/antilopa/Projects/Cpp/LearningCpp/build/CMakeFiles/rebuild_cache.dir
-/home/antilopa/Projects/Cpp/LearningCpp/build/modules/CMakeFiles/my_lib.dir
-/home/antilopa/Projects/Cpp/LearningCpp/build/modules/CMakeFiles/edit_cache.dir
-/home/antilopa/Projects/Cpp/LearningCpp/build/modules/CMakeFiles/rebuild_cache.dir
-/home/antilopa/Projects/Cpp/LearningCpp/build/bin/CMakeFiles/sut.dir
-/home/antilopa/Projects/Cpp/LearningCpp/build/bin/CMakeFiles/bootstrap.dir
-/home/antilopa/Projects/Cpp/LearningCpp/build/bin/CMakeFiles/edit_cache.dir
-/home/antilopa/Projects/Cpp/LearningCpp/build/bin/CMakeFiles/rebuild_cache.dir
