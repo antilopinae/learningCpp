@@ -5,7 +5,7 @@ echo "Generating"
 cmake -DLLVM_ENABLE_PROJECTS=clang -DCMAKE_BUILD_TYPE=Debug -D CMAKE_C_COMPILER="/usr/bin/clang" -D CMAKE_CXX_COMPILER="/usr/bin/clang++" -G Ninja -B build -S .  # note, the ninja build tool is faster than the make tool referenced in the docs.
 
 echo "Building"
-cmake --build build
+cmake --build build -t coverage
 
 echo "Testing"
 cd build
