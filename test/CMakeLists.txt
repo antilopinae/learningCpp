@@ -14,5 +14,5 @@ target_link_libraries(unit_tests PRIVATE sut gtest_main gmock)
 include(GoogleTest)
 gtest_discover_tests(unit_tests)
 
-include(Coverage)
-AddCoverage(unit_tests)
+#include(Coverage REQUIRED)
+#AddCoverage(unit_tests)

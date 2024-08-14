@@ -2,17 +2,15 @@ add_library(sut STATIC run.cpp)
 target_include_directories(sut PUBLIC .)
 
 target_link_libraries(sut PRIVATE my_lib)
-#target_compile_options(sut PRIVATE -save-temps=obj)
-#[[
-include(Format)
-Format(sut .)
+target_link_libraries(sut PRIVATE canvas)
+target_link_libraries(sut PRIVATE try_catch)
+target_link_libraries(sut PRIVATE struct)
+target_link_libraries(sut PRIVATE complex)
+target_link_libraries(sut PRIVATE vector)
 
-include(CheckIPOSupported)
-check_ipo_supported(RESULT ipo_supported)
-if(ipo_supported)
-	set(CMAKE_INTERPROCEDURAL_OPTIMIZATION True)
-endif()
-#]]
+#target_compile_options(sut PRIVATE -save-temps=obj)
+#include(Format REQUIRED)
+#Format(sut .)
 
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
 	target_compile_options(sut PRIVATE --coverage)
@@ -29,6 +27,12 @@ if (CMAKE_BUILD_TYPE STREQUAL Release)
 		PUBLIC -finline-functions
 		PUBLIC -ftree-vectorize
 	)
+
+	include(CheckIPOSupported)
+	check_ipo_supported(RESULT ipo_supported)
+	if(ipo_supported)
+		set(CMAKE_INTERPROCEDURAL_OPTIMIZATION True)
+	endif()
 endif()
 
 #[=[

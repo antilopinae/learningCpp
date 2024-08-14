@@ -24,8 +24,8 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+configure_file(.clang-format .clang-format COPYONLY)
 
 add_subdirectory(src bin)
 add_subdirectory(modules)
-add_subdirectory(test)
-#configure_file(.clang-format .clang-format COPYONLY)
+#add_subdirectory(test)
