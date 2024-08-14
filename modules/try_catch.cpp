@@ -11,23 +11,23 @@ void no_exception() noexcept
 //     иначе вызовется std::terminate()
 }
 
-class Vector{
-public:
-    Vector();
-};
-
-Vector::Vector(){
-    try {
-        Vector v = Vector();
-    }
-    catch (std::length_error&) {
-        std::cout<<"Сбой test()";
-        throw; //повторная генерация исключения
-    }
-    catch (std::bad_alloc&) {
-        std::terminate();
-    }
-}
+// class Vector{
+// public:
+//     Vector();
+// };
+//
+// Vector::Vector(){
+//     try {
+//         Vector v = Vector();
+//     }
+//     catch (std::length_error&) {
+//         std::cout<<"Сбой test()";
+//         throw; //повторная генерация исключения
+//     }
+//     catch (std::bad_alloc&) {
+//         std::terminate();
+//     }
+// }
 
 constexpr double C = 299792.458;
 
