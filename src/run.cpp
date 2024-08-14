@@ -8,11 +8,12 @@ void test_struct();
 void test_vector();
 void test_vector_container();
 void test_list_container();
+void test_complex_x();
+void test_vector_x();
 
 int run() {
-	std::cout<<hello()<<std::endl;
-	test_vector_container();
-	test_list_container();
+	hello();
+	test_vector_x();
 
 	return 0;
 }

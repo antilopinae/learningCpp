@@ -7,6 +7,11 @@ target_link_libraries(sut PRIVATE try_catch)
 target_link_libraries(sut PRIVATE struct)
 target_link_libraries(sut PRIVATE complex)
 target_link_libraries(sut PRIVATE container)
+target_link_libraries(sut PRIVATE
+complex_x
+vector_x
+)
+
 
 #target_compile_options(sut PRIVATE -save-temps=obj)
 #include(Format REQUIRED)

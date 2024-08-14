@@ -44,6 +44,10 @@ void test_vector()
 //reinterpret_cast - для трактовки обьекта как простой последовательности байтов
 //const_cast - для отбрасывания const
 
+
+// Shape* ps{read_shape(cin) );
+//     if (Smiley*p = dynamic_cast<Smiley*>(ps)) // ps указывает на Smiley? если Shape не Smiley, то вернет nullptr
+
 // Vector read(std::istream& is)
 // {
 //     Vector v;

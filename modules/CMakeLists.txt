@@ -10,3 +10,4 @@ add_library(try_catch STATIC try_catch.cpp)
 add_library(struct STATIC struct.cpp)
 
 add_subdirectory(classes)
+add_subdirectory(operations)
