@@ -12,10 +12,13 @@ void test_complex_x();
 void test_vector_x();
 void test_parallel();
 void test_vector_t();
+void test_limit();
+void test_template_args();
+void test_pair();
 
 int run() {
 	hello();
-	test_vector_t();
+	test_pair();
 
 	return 0;
 }

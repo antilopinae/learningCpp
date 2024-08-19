@@ -16,6 +16,9 @@ parallel
 )
 target_link_libraries(sut PRIVATE
 vector_t
+# limit
+template_args
+pair
 )
 
 
