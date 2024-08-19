@@ -1,5 +1,4 @@
 #include "vector_x.h"
-#include <iostream>
 
 Vector_x::Vector_x(const Vector_x& a) //Копирующий конструктор
 :elem {new double[a.sz]},
@@ -17,6 +16,43 @@ Vector_x& Vector_x::operator=(const Vector_x&a)//Копирующее присв
     delete[] elem;
     elem=p;
     sz = a.sz;
+    return *this;
+}
+
+// упускаем копирование при каждом +
+// Vector_x operator+(const Vector_x& a, const Vector_x& b)
+// {
+//     if (a.size()!=b.size())
+//         throw Vector_size_mismatch{};
+//     Vector_x res(a.size());
+//     for(int i=0; i!=a.size(); ++i)
+//         res[i]=a[i]+b[i];
+//     return res;
+// }
+
+//делаем так: перемещающий конструктор
+Vector_x::Vector_x(Vector_x&& a) :elem{a.elem}, sz{a.sz} //забираем элементы из а
+{
+    a.elem = nullptr; // Теперь в А нет элементов
+    a.sz = 0;
+}
+
+// Vector_x Vector_x::operator+(Vector_x b,const Vector_x& a)
+// {
+//     if (a.size()!=b.size())
+//         throw std::range_error{ "Vector_x" };
+//     Vector_x res(a.size());
+//     for(int i=0; i!=a.size(); ++i)
+//         res[i]=a[i]+b[i];
+//     return b;
+// }
+
+Vector_x& Vector_x::operator=(Vector_x&& a)
+{
+    this->elem = a.elem;
+    this->sz = a.sz;
+    a.elem = nullptr;
+    a.sz = 0;
     return *this;
 }
 
@@ -55,13 +91,12 @@ void Vector_x::push_back(double el)
 
 void test_vector_x()
 {
-    Vector_x v1 = {1,2,3,4,5};
-    Vector_x v2 = v1;
-    Vector_x v3{9};
-    v3 = v2;
-    v2 = {1,2,3};
-    for (int i=0; i<v2.size(); ++i)
-        std::cout<<v2[i];
-    for (int i=0; i<v3.size(); ++i)
-        std::cout<<v3[i];
+    Vector_x x(1000);
+    Vector_x y(2000);
+    Vector_x z(3000);
+    //получаем копию
+    z = x;
+    //выполняем перемещение (перемещающее присваивание)
+    y = std::move(x);
+    // return z; //используется перемещение
 }

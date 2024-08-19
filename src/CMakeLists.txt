@@ -11,6 +11,12 @@ target_link_libraries(sut PRIVATE
 complex_x
 vector_x
 )
+target_link_libraries(sut PRIVATE
+parallel
+)
+target_link_libraries(sut PRIVATE
+vector_t
+)
 
 
 #target_compile_options(sut PRIVATE -save-temps=obj)

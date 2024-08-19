@@ -11,3 +11,4 @@ add_library(struct STATIC struct.cpp)
 
 add_subdirectory(classes)
 add_subdirectory(operations)
+add_subdirectory(templates)
