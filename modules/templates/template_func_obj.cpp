@@ -1,7 +1,6 @@
-#include <iostream>
 #include <functional>
-#include <list>
-#include "vector.h"
+
+#include "vector_t.h"
 
 //policy object
 template<typename T>
@@ -51,7 +50,7 @@ int count(C& c, P pred)
     return cnt;
 }
 
-void f(Vector<int>& vec, std::list<std::string>& lst, int x, std::string& s)
+void f(Vector_t<int>& vec, std::list<std::string>& lst, int x, std::string& s)
 {
     // std::cout << "Количество значений, меньших " << x << ": " << count(vec, Less_than{x}) << '\n';
     // std::cout << "Количество значений, меньших " << s << ": " << count(lst, Less_than{s}) << '\n';
@@ -77,8 +76,8 @@ void test_template_func_obj()
     auto rr = c2(5);
     cout << rr << endl; // 32
 
-    Vector vec {1, 2, 3, 4, 5, 26};
+    Vector_t vec {1, 2, 3, 4, 5, 26};
     list lt {"Hello"s, "World"s};
     string str {"AA"s};
-    // f(vec, lt, 15, str);
+    f(vec, lt, 15, str);
 }

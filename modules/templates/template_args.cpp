@@ -1,4 +1,3 @@
-#include "vector.h"
 #include <iostream>
 
 template<typename T, int N>

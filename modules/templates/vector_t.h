@@ -4,7 +4,7 @@
 #include <list>
 
 template<typename T>
-class Vector
+class Vector_t
 {
 private:
     T* elem;
@@ -12,9 +12,9 @@ private:
 public:
     using value_type = T;
 
-    explicit Vector(int s);
-    Vector(std::initializer_list<T> lst);
-    ~Vector() {delete[] elem;}
+    explicit Vector_t(int s);
+    Vector_t(std::initializer_list<T> lst);
+    ~Vector_t() {delete[] elem;}
     const T& operator[](int i) const;
     const T& operator[](int i);
     // ..Операции копирования и перемещения
