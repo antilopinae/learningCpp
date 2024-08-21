@@ -12,4 +12,5 @@ add_library(example_vector example_vector.cpp
 add_library(deduction_guide deduction_guide.cpp
 )
 add_library(template_func_obj template_func_obj.cpp
+vector.cpp
 )

@@ -1,4 +1,11 @@
 #include "vector.h"
+#include <iostream>
+
+template<typename T>
+Vector<T>::Vector(std::initializer_list<T> lst): elem{new T[lst.size()]}, sz{static_cast<int>(lst.size())}
+{
+    std::copy(lst.begin(), lst.end(), elem);
+}
 
 template<typename T>
 Vector<T>::Vector(int s)
@@ -8,6 +15,7 @@ Vector<T>::Vector(int s)
     elem = new T[s];
     sz = s;
 }
+
 template<typename T>
 const T& Vector<T>::operator[](int i) const
 {
@@ -41,7 +49,7 @@ void write(const Vector<std::string>& vs)
 
 void f2(Vector<std::string>& vs)
 {
-    for (auto& s : vs)
+    for (const auto& s : vs)
         std::cout << s << '\n';
 }
 
