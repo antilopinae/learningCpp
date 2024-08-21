@@ -52,8 +52,8 @@ int count(C& c, P pred)
 
 void f(Vector_t<int>& vec, std::list<std::string>& lst, int x, std::string& s)
 {
-    // std::cout << "Количество значений, меньших " << x << ": " << count(vec, Less_than{x}) << '\n';
-    // std::cout << "Количество значений, меньших " << s << ": " << count(lst, Less_than{s}) << '\n';
+    std::cout << "Количество значений, меньших " << x << ": " << count(vec, Less_than{x}) << '\n';
+    std::cout << "Количество значений, меньших " << s << ": " << count(lst, Less_than{s}) << '\n';
 }
 
 void test_template_func_obj()
