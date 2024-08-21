@@ -15,10 +15,13 @@ void test_vector_t();
 void test_limit();
 void test_template_args();
 void test_pair();
+void test_example_vector();
+void test_deduction_guide();
+void test_template_func_obj();
 
 int run() {
 	hello();
-	test_pair();
+	test_template_func_obj();
 
 	return 0;
 }

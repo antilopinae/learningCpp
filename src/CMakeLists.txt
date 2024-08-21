@@ -19,6 +19,9 @@ vector_t
 # limit
 template_args
 pair
+example_vector
+deduction_guide
+template_func_obj
 )
 
 
