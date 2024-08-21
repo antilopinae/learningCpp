@@ -59,6 +59,7 @@ void test_vector_t()
     Vector_t<std::list<int>> vli(45);
     // write(vs);
     f2(vs);
+    Vector_t v {1,2,3,4};
 }
 
 

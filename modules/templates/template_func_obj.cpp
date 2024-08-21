@@ -52,8 +52,14 @@ int count(C& c, P pred)
 
 void f(Vector_t<int>& vec, std::list<std::string>& lst, int x, std::string& s)
 {
-    std::cout << "Количество значений, меньших " << x << ": " << count(vec, Less_than{x}) << '\n';
-    std::cout << "Количество значений, меньших " << s << ": " << count(lst, Less_than{s}) << '\n';
+    // std::cout << "Количество значений, меньших " << x << ": " << count(vec, Less_than{x}) << '\n';
+    // std::cout << "Количество значений, меньших " << s << ": " << count(lst, Less_than{s}) << '\n';
+}
+
+void template_func_obj()
+{
+    Vector_t vec {1, 2, 3, 4, 5, 26};
+    //Если это убрать, то все работает
 }
 
 void test_template_func_obj()
@@ -76,8 +82,8 @@ void test_template_func_obj()
     auto rr = c2(5);
     cout << rr << endl; // 32
 
-    Vector_t vec {1, 2, 3, 4, 5, 26};
-    list lt {"Hello"s, "World"s};
-    string str {"AA"s};
-    f(vec, lt, 15, str);
+    // Vector_t vec {1, 2, 3, 4, 5, 26};
+    // list lt {"Hello"s, "World"s};
+    // string str {"AA"s};
+    // f(vec, lt, 15, str);
 }
