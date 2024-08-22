@@ -50,16 +50,22 @@ int count(C& c, P pred)
     return cnt;
 }
 
-// void f(Vector_t<int>& vec, std::list<std::string>& lst, int x, std::string& s)
-// {
-//     std::cout << "Количество значений, меньших " << x << ": " << count(vec, Less_than{x}) << '\n';
-//     std::cout << "Количество значений, меньших " << s << ": " << count(lst, Less_than{s}) << '\n';
-// }
-
-void template_func_obj()
+void f(Vector_xx<int>& vec, std::list<std::string>& lst, int x, std::string& s)
 {
-    Vector_xx vec {1, 2, 3, 4, 5, 26};
-    //Если это убрать, то все работает
+    std::cout << "Количество значений, меньших " << x << ": " << count(vec, Less_than{x}) << '\n';
+    std::cout << "Количество значений, меньших " << s << ": " << count(lst, Less_than{s}) << '\n';
+}
+
+void f2(Vector_xx<int>& vec, std::list<std::string>& lst, int x, std::string& s)
+{
+    std::cout << "Количество значений, меньших " << x << ": " << count(vec, [&] (int a){return a<x;}) << '\n';
+    // [&] (int a) { return a<x;} - лямбда-выражение, генерирует Less_than<int>{x}
+    // [&x] - ссылка на обьект
+    // чтобы передать копию х - [=x]
+    // [] - не захватываются никакие локальные имена
+    // [&] - запись для захвата всех локальных имен по ссылке
+    // [=] - запись для захвата всех локальных имен по значению
+    std::cout << "Количество значений, меньших " << s << ": " << count(lst, [&] (const std::string& a){return a<s;}) << '\n';
 }
 
 void test_template_func_obj()
@@ -82,10 +88,9 @@ void test_template_func_obj()
     auto rr = c2(5);
     cout << rr << endl; // 32
 
-    template_func_obj();
-
-    // Vector_t vec {1, 2, 3, 4, 5, 26};
-    // list lt {"Hello"s, "World"s};
-    // string str {"AA"s};
-    // f(vec, lt, 15, str);
+    Vector_xx vec {1, 2, 3, 4, 5, 26};
+    list lt {"Hello"s, "World"s};
+    string str {"AA"s};
+    f(vec, lt, 15, str);
+    f2(vec, lt, 15, str);
 }
