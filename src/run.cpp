@@ -20,10 +20,13 @@ void test_deduction_guide();
 void test_template_func_obj();
 void test_init_mode();
 void test_template_value_ex(); // нельзя одновременно с test_vector_t();
+void test_if_time_compile();
+
+import concept_x;
 
 int run() {
 	hello();
-	test_template_value_ex();
+	test_concept_x();
 
 	return 0;
 }

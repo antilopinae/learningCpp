@@ -24,6 +24,10 @@ deduction_guide
 template_func_obj
 init_mode
 template_value_ex
+if_time_compile
+)
+target_link_libraries(sut PRIVATE
+concept_x
 )
 
 

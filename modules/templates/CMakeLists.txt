@@ -20,3 +20,5 @@ vector_t.cpp
 add_library(template_value_ex template_value_ex.cpp
 vector_t.cpp
 )
+add_library(if_time_compile if_time_compile.cpp
+)
