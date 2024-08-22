@@ -19,10 +19,11 @@ void test_example_vector();
 void test_deduction_guide();
 void test_template_func_obj();
 void test_init_mode();
+void test_template_value_ex(); // нельзя одновременно с test_vector_t();
 
 int run() {
 	hello();
-	test_init_mode();
+	test_template_value_ex();
 
 	return 0;
 }

@@ -56,6 +56,8 @@ void init_mode2()
                 return vector<int>{p,q};
             case cpy:
                 return arg;
+            case patrn:
+                return arg;
             ///
         }
     } ();
@@ -65,4 +67,5 @@ void test_init_mode()
 {
     Vector_t t {1,2,3,4};
     init_mode1();
+    init_mode2();
 }
