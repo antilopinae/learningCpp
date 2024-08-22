@@ -110,6 +110,15 @@ void rotate_and_draw(std::vector<S>& v)
     for_all(v, [](auto& s){ s->rotate(); s->draw(); });
 }
 
+void user4()
+{
+    using namespace std;
+    vector<unique_ptr<Shape>> v1;
+    vector<Shape*> v2;
+    // ...
+    rotate_and_draw(v1);
+    rotate_and_draw(v2);
+}
 
 void test_template_func_obj()
 {
@@ -146,4 +155,6 @@ void test_template_func_obj()
         v.push_back(read_shape(cin));
 
     rotate_and_draw(v);
+
+    user4();
 }
