@@ -12,4 +12,3 @@ add_library(deduction_guide deduction_guide.cpp
 )
 add_library(template_func_obj template_func_obj.cpp
 )
-target_link_libraries(template_func_obj PRIVATE vector_t)

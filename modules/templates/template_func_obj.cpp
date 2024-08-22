@@ -1,6 +1,6 @@
 #include <functional>
 
-#include "vector_t.h"
+#include "vector_xx.h"
 
 //policy object
 template<typename T>
@@ -50,15 +50,15 @@ int count(C& c, P pred)
     return cnt;
 }
 
-void f(Vector_t<int>& vec, std::list<std::string>& lst, int x, std::string& s)
-{
-    // std::cout << "Количество значений, меньших " << x << ": " << count(vec, Less_than{x}) << '\n';
-    // std::cout << "Количество значений, меньших " << s << ": " << count(lst, Less_than{s}) << '\n';
-}
+// void f(Vector_t<int>& vec, std::list<std::string>& lst, int x, std::string& s)
+// {
+//     std::cout << "Количество значений, меньших " << x << ": " << count(vec, Less_than{x}) << '\n';
+//     std::cout << "Количество значений, меньших " << s << ": " << count(lst, Less_than{s}) << '\n';
+// }
 
 void template_func_obj()
 {
-    Vector_t vec {1, 2, 3, 4, 5, 26};
+    Vector_xx vec {1, 2, 3, 4, 5, 26};
     //Если это убрать, то все работает
 }
 
@@ -81,6 +81,8 @@ void test_template_func_obj()
     auto c2 = std::bind(c1, 12, _1);
     auto rr = c2(5);
     cout << rr << endl; // 32
+
+    template_func_obj();
 
     // Vector_t vec {1, 2, 3, 4, 5, 26};
     // list lt {"Hello"s, "World"s};

@@ -22,6 +22,6 @@ void test_template_func_obj();
 int run() {
 	hello();
 	test_template_func_obj();
-	test_vector_t();
+
 	return 0;
 }
