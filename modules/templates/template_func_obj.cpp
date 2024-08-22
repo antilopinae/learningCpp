@@ -1,6 +1,10 @@
 #include <functional>
+#include <iostream>
+#include <vector>
+#include <memory>
 
 #include "vector_xx.h"
+
 
 //policy object
 template<typename T>
@@ -56,6 +60,7 @@ void f(Vector_xx<int>& vec, std::list<std::string>& lst, int x, std::string& s)
     std::cout << "Количество значений, меньших " << s << ": " << count(lst, Less_than{s}) << '\n';
 }
 
+// лучше
 void f2(Vector_xx<int>& vec, std::list<std::string>& lst, int x, std::string& s)
 {
     std::cout << "Количество значений, меньших " << x << ": " << count(vec, [&] (int a){return a<x;}) << '\n';
@@ -67,6 +72,44 @@ void f2(Vector_xx<int>& vec, std::list<std::string>& lst, int x, std::string& s)
     // [=] - запись для захвата всех локальных имен по значению
     std::cout << "Количество значений, меньших " << s << ": " << count(lst, [&] (const std::string& a){return a<s;}) << '\n';
 }
+template<typename C, typename Oper>
+void for_all(C& c, Oper op)
+// requires Sequence<C> && Callable<Oper,Value_type<C>>
+{
+    for (auto& x : c)
+        op(x);
+}
+class Shape{
+public:
+    void draw() {
+        std::cout<<"draw"<<std::endl;
+    }
+    void rotate() {
+        std::cout<<"rotate"<<std::endl;
+    }
+};
+std::unique_ptr<Shape> read_shape(std::istream& c)
+{
+    auto p = std::unique_ptr<Shape>(new Shape{});
+    return p;
+}
+void user2()
+{
+    std::vector<std::unique_ptr<Shape>> v;
+    for(int i=0;i<3;++i)
+        v.push_back(read_shape(std::cin));
+    //draw_all
+    for_all(v, [](std::unique_ptr<Shape>& ps){ ps->draw(); });
+    //rotate_all
+    for_all(v, [](std::unique_ptr<Shape>& ps){ ps->rotate(); });
+}
+//лямбда функция может быть обобщенной
+template<class S>
+void rotate_and_draw(std::vector<S>& v)
+{
+    for_all(v, [](auto& s){ s->rotate(); s->draw(); });
+}
+
 
 void test_template_func_obj()
 {
@@ -93,4 +136,14 @@ void test_template_func_obj()
     string str {"AA"s};
     f(vec, lt, 15, str);
     f2(vec, lt, 15, str);
+
+    user2();
+
+    vector<unique_ptr<Shape>> v;
+    v.push_back(std::unique_ptr<Shape>(new Shape()));
+
+    for(int i=0;i<2;++i)
+        v.push_back(read_shape(cin));
+
+    rotate_and_draw(v);
 }
