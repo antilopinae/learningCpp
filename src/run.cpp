@@ -18,10 +18,11 @@ void test_pair();
 void test_example_vector();
 void test_deduction_guide();
 void test_template_func_obj();
+void test_init_mode();
 
 int run() {
 	hello();
-	test_template_func_obj();
+	test_init_mode();
 
 	return 0;
 }

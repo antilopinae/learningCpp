@@ -12,3 +12,6 @@ add_library(deduction_guide deduction_guide.cpp
 )
 add_library(template_func_obj template_func_obj.cpp
 )
+add_library(init_mode init_mode.cpp
+vector_t.cpp
+)

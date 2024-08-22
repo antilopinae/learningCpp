@@ -22,6 +22,7 @@ pair
 example_vector
 deduction_guide
 template_func_obj
+init_mode
 )
 
 
