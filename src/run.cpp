@@ -23,10 +23,12 @@ void test_template_value_ex(); // нельзя одновременно с test_
 void test_if_time_compile();
 
 import concept_x;
+import concept2_x;
 
 int run() {
 	hello();
-	test_concept_x();
+	// test_concept_x();
+	test_concept2_x();
 
 	return 0;
 }

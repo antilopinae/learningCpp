@@ -28,6 +28,7 @@ if_time_compile
 )
 target_link_libraries(sut PRIVATE
 concept_x
+concept2_x
 )
 
 
