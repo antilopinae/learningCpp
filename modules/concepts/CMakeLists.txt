@@ -12,3 +12,9 @@ target_sources(concept2_x
         FILE_SET cxx_modules_concept2 TYPE CXX_MODULES FILES
         concept2_x.cpp
 )
+add_library(concept3_x)
+target_sources(concept3_x
+    PUBLIC
+        FILE_SET cxx_modules_concept3 TYPE CXX_MODULES FILES
+        concept3_x.cpp
+)

@@ -24,11 +24,13 @@ void test_if_time_compile();
 
 import concept_x;
 import concept2_x;
+import concept3_x;
 
 int run() {
 	hello();
 	// test_concept_x();
-	test_concept2_x();
+	// test_concept2_x();
+	test_concept3_x();
 
 	return 0;
 }
