@@ -25,6 +25,9 @@ target_sources(modules
         FILE_SET cxx_modules_modules TYPE CXX_MODULES FILES
         modules.cpp
 )
+target_link_libraries(modules PRIVATE
+A
+)
 
 add_library(canvas STATIC canvas.cpp)
 add_library(try_catch STATIC try_catch.cpp)

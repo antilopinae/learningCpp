@@ -4,9 +4,12 @@ module;
 
 export module modules;
 
+import A;
+
 export void test_modules()
 {
     std::cout << "Test modules" << std::endl;
+    std::cout << Hello() << ' ' << World() << '\n';
 }
 
 export int test_modules_f();

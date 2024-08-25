@@ -35,7 +35,6 @@ target_link_libraries(sut PRIVATE
 casts
 namespaces
 modules
-A
 )
 
 

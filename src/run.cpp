@@ -28,7 +28,6 @@ import concept3_x;
 import casts;
 import namespaces;
 import modules;
-import A;
 
 int run() {
 	test_concept3_x();
