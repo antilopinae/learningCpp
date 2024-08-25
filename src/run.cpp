@@ -25,12 +25,16 @@ void test_if_time_compile();
 import concept_x;
 import concept2_x;
 import concept3_x;
+import casts;
+import namespaces;
+import modules;
 
 int run() {
-	hello();
-	// test_concept_x();
-	// test_concept2_x();
 	test_concept3_x();
+	test_casts();
+	test_namespaces();
+	test_modules();
+	test_modules_f();
 
 	return 0;
 }

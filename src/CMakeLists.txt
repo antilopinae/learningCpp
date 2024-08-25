@@ -31,6 +31,11 @@ concept_x
 concept2_x
 concept3_x
 )
+target_link_libraries(sut PRIVATE
+casts
+namespaces
+modules
+)
 
 
 #target_compile_options(sut PRIVATE -save-temps=obj)
