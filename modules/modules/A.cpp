@@ -2,6 +2,8 @@
 
 export module A; //primary module interface unit
 
+// please see: ../modules.cpp
+
 import :C; //WorldImpl() is now visible only for A.cpp
 export import :B; // Hello() is visible when importing A
 // export import :C //ERROR: Cannot export a module implementation unit

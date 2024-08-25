@@ -28,6 +28,25 @@ namespace NAMESPACES
             // auto min = 60s;
         }
     }
+    namespace Lib
+    {
+        inline namespace Lib_1
+        {
+            template<typename T> class A;
+        }
+
+        template<typename T> int g(T) {/* ... */ return 42;}
+    }
+    struct MyClass { /*...*/ };
+    namespace Lib
+    {
+        template<> class A<MyClass> { /*...*/ };
+    }
+    int namespaces2()
+    {
+        Lib::A<MyClass> a;
+        return g(a); //ok, Lib is associated namespace of A
+    }
 }
 
 export void test_namespaces()
@@ -35,4 +54,5 @@ export void test_namespaces()
     using namespace std;
     cout << "Test namespaces" << endl;
     NAMESPACES::namespaces();
+    NAMESPACES::namespaces2();
 }
