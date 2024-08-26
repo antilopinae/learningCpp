@@ -32,9 +32,6 @@ import modules;
 int run() {
 	test_concept3_x();
 	test_casts();
-	test_namespaces();
-	test_modules();
-	test_modules_f();
 
 	return 0;
 }

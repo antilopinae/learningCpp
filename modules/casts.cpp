@@ -106,6 +106,11 @@ namespace CONST_CASTS {
     {
         cout << __PRETTY_FUNCTION__ << endl;
     }
+
+    void f(const int* x)
+    {
+        cout << __PRETTY_FUNCTION__ << endl;
+    }
 }
 
 int const_casts()
@@ -120,15 +125,234 @@ int const_casts()
     quux(&x, y);
 
     int* px = &x;
-    CONST_CASTS::f(px);
-    // CONST_CASTS::f(const_cast<const int*>(px));
+
+    using namespace CONST_CASTS;
+    f(px);
+    f(const_cast<const int*>(px));
+    /*
+    Квалификаторы const и volatile можно удалить или добавить только с помощью оператора приведения const_cast и приведения типов в стиле языка C. Другие операторы приведения типов не влияют на квалификаторы const и volatile (reinterpret_cast, static_cast, dynamic_cast).
+    */
     return 0;
 }
 
+namespace REINERPRET_CASTS
+{
+    /*
+    Оператор приведения reinterpret_cast используется для приведения несовместимых типов. Может приводить целое число к указателю, указатель к целому числу, указатель к указателю (это же касается и ссылок). Является функционально усеченным аналогом приведения типов в стиле языка С. Отличие состоит в том, что reinterpret_cast не может снимать квалификаторы const и volatile, а также не может делать небезопасное приведение типов не через указатели, а напрямую по значению. Например, переменную типа int к переменной типа double привести при помощи reinterpret_cast нельзя.
+    */
+
+    struct foo {};
+    struct bar {};
+
+    struct baz : bar {};
+    struct quux : bar {};
+
+    int main()
+    {
+        int i = 5;
+        double d = 111.222;
+        char c = 'a';
+        int* pi = &i;
+        double* pd = &d;
+        const int* pci = &i;
+        void* pv = nullptr;
+
+        //обьекты классов
+        foo oFoo;
+        bar oBar;
+        baz oBaz;
+        quux oQuux;
+
+        //указатели на обьекты классов
+        foo* pFoo = &oFoo;
+        bar* pBar = &oBar;
+        baz* pBaz = &oBaz;
+        quux* pQuux = &oQuux;
+
+        //приводим явно double к int
+        // i = reinterpret_cast<int>(d); //ERROR
+        // d = reinterpret_cast<int>(i); //ERROR
+
+        //указатель на int к char
+        // c = reinterpret_cast<char>(pi); //error: loses inf
+
+        //char к указателю на void
+        pv = reinterpret_cast<void*>(c);
+
+        //указатель на void к указателю на int
+        pi = reinterpret_cast<int*>(pv);
+
+        //const int* -> int*
+        // pi = reinterpret_cast<int*>(pci); //ERROR
+
+        //bar* -> foo* (из разных иерархий)
+        pFoo = reinterpret_cast<foo*>(pBar);
+
+        //double* -> double
+        // d = reinterpret_cast<double>(pd); //error
+
+        // double -> *double
+        // pd = reinterpret_cast<double*>(d); //error
+
+        //из одной иерархии в другую
+        pBar = reinterpret_cast<bar*>(pBaz);
+        pQuux = reinterpret_cast<quux*>(pBar);
+
+        return 0;
+    }
+}
+
+void reinterpret_casts()
+{
+    using namespace REINERPRET_CASTS;
+    main();
+}
+
+namespace STATIC_CASTS
+{
+    /*
+     Оператор приведения static_cast применяется для неполиморфного приведения типов на этапе компиляции программы. Отличие static_cast от приведения типов в стиле языка C состоит в том, что данный оператор приведения может отслеживать недопустимые преобразования, такие как приведение указателя к значению или наоборот (unsigned int к указателю на double не приведет), а также приведение указателей и ссылок разных типов считается корректным только, если это приведение вверх или вниз по одной иерархии наследования классов, либо это указатель на void. В случае фиксации отклонения от данных ограничений будет выдана ошибка при компиляции программы. При множественном наследовании static_cast может вернуть указатель не на исходный объект, а на его подобъект.
+    */
+
+    struct foo {};
+    struct bar {};
+    struct baz : bar {};
+    struct quux : bar {};
+
+    int main()
+    {
+        // Переменные простых типов и указатели на переменные простых типов
+        int i = 5;
+        double d = 111.222;
+        char c = 'a';
+        int* pi = &i;
+        double* pd = &d;
+        const int* pci = &i;
+        void* pv = nullptr;
+
+        // Объекты классов
+        foo oFoo;
+        bar oBar;
+        baz oBaz;
+        quux oQuux;
+
+        // Указатели на объекты классов
+        foo* pFoo = &oFoo;
+        bar* pBar = &oBar;
+        baz* pBaz = &oBaz;
+        quux* pQuux = &oQuux;
+
+        //приводим явно double к int
+        i = static_cast<int>(d);
+        std::cout << i << std::endl;
+
+        //int->double
+        d = static_cast<double>(i);
+        std::cout << d << std::endl;
+
+        //int*->char
+        // c = static_cast<char>(*pi); //error!
+
+        //char&->void
+        // pv = static_cast<void*>(&c); //error
+
+        pi = static_cast<int*>(pv); //void* -> int*
+
+        //const int* -> int*
+        // pi = static_cast<int*>(pci); //error!
+
+        // pFoo = static_cast<foo*>(pBar); //error!
+        // перемещение из одной иерархии наследования в другую
+        pBar = static_cast<bar*>(pBaz);
+        pQuux = static_cast<quux*>(pBar);
+
+        // it works!
+        pv = static_cast<void*>(pBar);
+
+        return 0;
+    }
+}
+
+void static_casts()
+{
+    using namespace STATIC_CASTS;
+    main();
+}
+
+namespace DYNAMIC_CASTS
+{
+    /*
+    Оператор приведения dynamic_cast применяется для полиморфного приведения типов на этапе выполнения программы (класс считается полиморфным, если в нем есть хотя бы одна виртуальная функция). Если указатель, подлежащий приведению, ссылается на объект результирующего класса или объект класса производный от результирующего то приведение считается успешным. То же самое для ссылок. Если приведение невозможно, то на этапе выполнения программы будет возвращен NULL, если приводятся указатели. Если приведение производится над ссылками, то будет сгенерировано исключение std::bad_cast.
+    */
+    /*
+    Несмотря на то, что dynamic_cast предназначен для приведения полиморфных типов по иерархии наследования, он может быть использован и для обычных неполиморфных типов вверх по иерархии. В этом случае ошибка будет получена на этапе компиляции. Оператор приведения dynamic_cast может приводить указатель на полиморфный тип к указателю на void, но не может приводить указатель на void к другому типу. Способность dynamic_cast приводить полиморфные типы обеспечивается системой RTTI (Run-Time Type Identification), которая позволяет идентифицировать тип объекта в процессе выполнения программы. При множественном наследовании dynamic_cast может вернуть указатель не на исходный объект, а на его подобъект.
+    */
+
+    struct foo
+    {
+        virtual void do_some() {};
+    };
+
+    struct bar
+    {
+        virtual void do_some() {};
+    };
+
+    struct baz : bar {};
+    struct quux : bar {};
+
+    int main()
+    {
+        void* pv = nullptr;
+
+        // Объекты классов
+        foo oFoo;
+        bar oBar;
+        baz oBaz;
+        quux oQuux;
+
+        // Указатели на объекты классов
+        foo* pFoo = &oFoo;
+        bar* pBar = &oBar;
+        baz* pBaz = &oBaz;
+        quux* pQuux = &oQuux;
+
+        pFoo = dynamic_cast<foo*>(pBar);
+        if(pFoo == nullptr)
+        {
+            std::cout << "Fail" << std::endl; //error in runtime
+        }
+
+        //void* -> bar*
+        // pBar = dynamic_cast<foo*>(pv); //error in compile-time
+
+        //bar* -> void*
+        pv = dynamic_cast<void*>(pBar);
+
+        //перемещение из одной иерархии наследования в другую
+        pBar = dynamic_cast<bar*>(pBaz);
+        pQuux = dynamic_cast<quux*>(pBar); //its nullptr now!
+        if (pQuux == nullptr)
+        {
+            std::cout << "Fail baz->bar->quux" << std::endl;
+        }
+
+        return 0;
+    }
+}
+
+void dynamic_casts()
+{
+    using namespace DYNAMIC_CASTS;
+    main();
+}
 
 export void test_casts()
 {
     std::cout << "Test casts" << std::endl;
     c_casts();
     const_casts();
+    reinterpret_casts();
+    static_casts();
+    dynamic_casts();
 }
