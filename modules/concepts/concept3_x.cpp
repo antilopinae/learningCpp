@@ -246,9 +246,28 @@ class optional
 {
     bool initialized;
     std::aligned_storage_t<sizeof(T), alignof(T)> storage;
-    T & get() & {return reinterpret_cast<T&>(storage); }
-    T const & get() const & { return reinterpret_cast<T const &>(storage); }
-    T && get() && { return std::move(get()); }
+
+    T & get() &
+    {
+        return reinterpret_cast<T&>(storage);
+    }
+    T const & get() const &
+    {
+        return reinterpret_cast<T const &>(storage);
+    }
+    T && get() &&
+    {
+        return std::move(get());
+    }
+    optional() noexcept: initialized(false) {}
+    // optional(T const & val) noexcept(NothrowCopyConstructible<T>) : initialized(true)
+    // {
+    //     new (&storage) T(value);
+    // }
+    // ~optional() : noexcept(NothrowDestructible<T>)
+    // {
+    //     if (initialized) get().~T();
+    // }
 };
 
 export void test_concept3_x()

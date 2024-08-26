@@ -29,6 +29,13 @@ target_link_libraries(modules PRIVATE
 A
 )
 
+add_library(noexcepts)
+target_sources(noexcepts
+    PUBLIC
+        FILE_SET cxx_modules_noexcepts TYPE CXX_MODULES FILES
+        noexcepts.cpp
+)
+
 add_library(canvas STATIC canvas.cpp)
 add_library(try_catch STATIC try_catch.cpp)
 add_library(struct STATIC struct.cpp)

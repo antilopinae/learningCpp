@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "allr ok" -a
+git commit -m "learn noexcepts" -a
 git push -u origin main
