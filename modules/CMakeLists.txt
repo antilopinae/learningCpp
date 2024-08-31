@@ -36,6 +36,13 @@ target_sources(noexcepts
         noexcepts.cpp
 )
 
+add_library(move_semantic)
+target_sources(move_semantic
+    PUBLIC
+        FILE_SET cxx_modules_move_semantic TYPE CXX_MODULES FILES
+        move_semantic.cpp
+)
+
 add_library(canvas STATIC canvas.cpp)
 add_library(try_catch STATIC try_catch.cpp)
 add_library(struct STATIC struct.cpp)

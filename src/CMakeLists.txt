@@ -36,6 +36,7 @@ casts
 namespaces
 modules
 noexcepts
+move_semantic
 )
 
 

@@ -29,10 +29,12 @@ import casts;
 import namespaces;
 import modules;
 import noexcepts;
+import move_semantic;
 
 int run() {
 	test_concept3_x();
 	test_noexcepts();
+	test_move_semantic();
 
 	return 0;
 }
