@@ -1,6 +1,8 @@
 module;
 
 #include <iostream>
+#include <algorithm>
+#include <ranges>
 #include <type_traits>
 #include <utility>
 
@@ -231,6 +233,7 @@ namespace MOVE_SEMANTICS
     void test_reference_rvalue()
     {
         using namespace REFERENCE_RVALUE;
+        std::cout<<"Test reference rvalue \n";
         // X& xLvalueRef = someFunctionReturningX(); //Не скомпилируется - нельзя привязать rvalue к ссылке на lvalue
         const X& xConstLvalueRef = someFunctionReturningX(); //можно привязывать rvalue к константным ссылкам на lvalue
         // xConstLvalueRef.setA(0); //Не скомпилируется
@@ -242,13 +245,178 @@ namespace MOVE_SEMANTICS
 
     namespace REFERENCE_RVALUE2
     {
+        class X
+        {
+        public:
+            void setA(double a)
+            {
+                //какой-то сеттер
+            }
 
+            X()
+            {
+                resource = new int[100];
+            }
+
+            X(const X& x)
+            {
+                if(x.resource == nullptr) return;
+                if(resource == nullptr) resource = new int[100];
+                for (int i = 0; i<100; ++i)
+                    resource[i] = x.resource[i];
+            }
+
+            X& operator=(const X& x)
+            {
+                X copy{x};
+                std::swap(resource, copy.resource);
+
+                return *this;
+            }
+
+            ~X()
+            {
+                delete[] resource;
+            }
+
+        private:
+            int* resource = nullptr;
+        };
+
+        X someFunctionReturningX()
+        {
+            X x;
+            return x;
+        }
     }
 
     void test_reference_rvalue2()
     {
         using namespace REFERENCE_RVALUE2;
+        std::cout<<"Test reference rvalue2 \n";
+        X x;
+        x = someFunctionReturningX(); //вызов оператора копирования, внутри которого создается копия временного обьекта
 
+        /*
+        Заметили, да? Мы копируем содержимое временного объекта, в то время как копирования фактически можно избежать, просто забрав (переместив) ресурс из временного объекта, т.к. этот объект всё равно очень скоро (после выхода из конструктора копирования) будет уничтожен и никто не пострадает, если его содержимое станет пустым (или не пустым, но невалидным). Это и есть move semantics.
+        */
+    }
+
+
+    namespace REFERENCE_RVALUE3
+    {
+        class X
+        {
+        public:
+            void setA(double a)
+            {
+                //какой-то сеттер
+            }
+
+            X()
+            {
+                resource = new int[100];
+            }
+
+            X(const X& x)
+            {
+                for (int i = 0; i<100; ++i)
+                    resource[i] = x.resource[i];
+            }
+
+            X& operator=(const X& x)
+            {
+                X copy{x};
+                std::swap(resource, copy.resource);
+
+                return *this;
+            }
+
+            ~X()
+            {
+                delete[] resource;
+            }
+
+            /*
+            Обратите внимание на то, что и конструктор и оператор копирования должны быть помечены как noexcept.
+            */
+
+            X(X&& x) noexcept //конструктор перемещения
+            {
+                std::swap(resource, x.resource);
+            }
+
+            X& operator=(X&& x) noexcept
+            {
+                std::swap(resource, x.resource);
+                return *this;
+            }
+
+        private:
+            int* resource = nullptr;
+        };
+
+        X someFunctionReturningX()
+        {
+            X x;
+            return x;
+        }
+    }
+
+    void test_reference_rvalue3()
+    {
+        using namespace REFERENCE_RVALUE3;
+        std::cout<<"Test reference rvalue3 \n";
+        /*
+        С++ 11 дал нам два инструмента для реализации move semantics в пользовательских классах – конструктор перемещения и оператор перемещения. Это своего рода аналоги конструктора и оператора копирования, но предназначенные не для копирования, а для перемещения. Добавим их в наш класс X:
+        */
+        X x;
+        x = someFunctionReturningX();
+        /*
+        Теперь при использовании компилятора, поддерживающего C++ 11, код из листинга 3 больше не будет вызывать оператор копирования, а вместо него будет вызывать оператор перемещения. Почему? Потому что в данном случае справа от знака равно находится rvalue, а конструктор и оператор копирования предназначены для работы именно с rvalue.
+        */
+
+        /*
+         C ++ позволяет вашей программе отличать временные объекты от невременных (rvalue от lvalue);                                                                                                                                                                                                                                                                                                                                                                   *
+         позволяет ссылаться на эти временные объекты;
+         в случае, если мы используем их для присваивания или инициализации какого-то другого объекта, C++ вызывает специальные конструктор либо оператор, в которых мы можем делать, что угодно, например, забирать ресурсы у временного объекта, “ломая” и “портя” его, но избегая при этом потенциально медленного копирования. “Испорченный” временный объект делает то же самое, что сделал бы и не будь он “испорченным”, а именно – уничтожается (на то он и временный).
+        */
+    }
+
+    namespace STD_MOVE
+    {
+        /*
+         std::move – это функция из стандартной библиотеки, определённая в хедере <utility>, которая позволяет взять, что угодно (например, lvalue), и сделать из этого rvalue (xvalue, если быть точным).
+
+         Это даёт нам возможность перемещать объекты, rvalue-ссылок на которые у нас нет.
+        */
+
+        class X
+        {
+        public:
+            X(X&& x) noexcept : stringField(std::move(x.stringField))
+            {
+                std::swap(resource, x.resource);
+            }
+            X& operator=(X&& x) noexcept
+            {
+                stringField = std::move(x.stringField); //вызван конструктор перемещения std::string
+                std::swap(resource, x.resource);
+                return *this;
+            }
+            ~X()
+            {
+                delete[] resource;
+            }
+        private:
+            std::string stringField;
+            int* resource = nullptr;
+        };
+    }
+
+    void test_std_move()
+    {
+        using namespace STD_MOVE;
     }
 }
 
@@ -269,4 +437,7 @@ export void test_move_semantic()
 
     test_reference_rvalue();
     test_reference_rvalue2();
+    test_reference_rvalue3();
+
+    test_std_move();
 }

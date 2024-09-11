@@ -30,11 +30,15 @@ import namespaces;
 import modules;
 import noexcepts;
 import move_semantic;
+import move_semantic2;
+import thread_pool;
 
 int run() {
-	test_concept3_x();
-	test_noexcepts();
-	test_move_semantic();
+	// test_concept3_x();
+	// test_noexcepts();
+	// test_move_semantic();
+	// test_move_semantic2();
 
+	test_thread_pool();
 	return 0;
 }

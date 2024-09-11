@@ -43,6 +43,13 @@ target_sources(move_semantic
         move_semantic.cpp
 )
 
+add_library(move_semantic2)
+target_sources(move_semantic2
+    PUBLIC
+        FILE_SET cxx_modules_move_semantic2 TYPE CXX_MODULES FILES
+        move_semantic2.cpp
+)
+
 add_library(canvas STATIC canvas.cpp)
 add_library(try_catch STATIC try_catch.cpp)
 add_library(struct STATIC struct.cpp)
@@ -52,3 +59,4 @@ add_subdirectory(operations)
 add_subdirectory(templates)
 add_subdirectory(concepts)
 add_subdirectory(modules)
+add_subdirectory(threads)

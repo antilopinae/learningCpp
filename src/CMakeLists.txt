@@ -37,6 +37,8 @@ namespaces
 modules
 noexcepts
 move_semantic
+move_semantic2
+thread_pool
 )
 
 
